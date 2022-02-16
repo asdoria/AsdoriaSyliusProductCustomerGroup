@@ -1,0 +1,3 @@
+doctrine_migrations:
+  migrations_paths:
+    'Asdoria\SyliusProductCustomerGroupPlugin\Migrations': '@AsdoriaSyliusProductCustomerGroupPluginBundle/Migrations'

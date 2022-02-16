@@ -1,0 +1,5 @@
+services:
+    asdoria_product_customer_group.listener.admin.product_form_menu_builder:
+        class: Asdoria\SyliusProductCustomerGroupPlugin\Menu\AdminProductFormMenuListener
+        tags:
+            - { name: kernel.event_listener, event: sylius.menu.admin.product.form, method: "addItems" }

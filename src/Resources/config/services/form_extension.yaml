@@ -1,0 +1,6 @@
+
+services:
+    asdoria_product_customer_group.form.extension.type.product:
+        class: Asdoria\SyliusProductCustomerGroupPlugin\Form\Extension\ProductTypeExtension
+        tags:
+            - { name : form.type_extension, extended_type: Sylius\Bundle\ProductBundle\Form\Type\ProductType, priority: -129 }
