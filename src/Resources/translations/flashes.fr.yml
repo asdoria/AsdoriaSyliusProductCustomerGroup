@@ -1,4 +1,3 @@
 asdoria:
     ui:
-        customer_groups: Groupe De clients
         you_are_not_allowed_to_access_product: Désolé, ce produit n'est accessible qu'à certains clients. N'hésitez pas à parcourir les autres produits de la même catégorie.
