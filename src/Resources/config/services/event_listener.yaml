@@ -1,0 +1,10 @@
+services:
+  asdoria_product_customer_group.access_check.listener:
+    class: Asdoria\SyliusProductCustomerGroupPlugin\EventListener\AccessCheckListener
+    arguments:
+      $tokenStorage: '@security.token_storage'
+      $router: '@router'
+      $session: '@session'
+      $requestStack: '@requestStack'
+    tags:
+      - { name: kernel.event_listener, event: sylius.product.show,  method: onCheck }

@@ -16,7 +16,7 @@ interface CustomerGroupsAwareInterface
     public function hasCustomerGroups(): bool;
 
     /**
-     * @return Collection|CustomerGroupInterface[]
+     * @return Collection
      */
     public function getCustomerGroups(): Collection;
 

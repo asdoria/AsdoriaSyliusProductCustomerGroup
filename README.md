@@ -36,12 +36,11 @@
 ---
 1. Add the repository to composer.json
 
-[//]: # (TODO Remplacer l'url github par la nouvelle)
 ```JSON
 "repositories": [
     {
     "type": "git",
-    "url": "https://github.com/ygasdoria/AsdoriaSyliusProductCustomerGroup"
+    "url": "https://github.com/asdoria/AsdoriaSyliusProductCustomerGroup"
     }
 ],
 ```
