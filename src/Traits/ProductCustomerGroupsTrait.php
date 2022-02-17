@@ -12,6 +12,15 @@ trait ProductCustomerGroupsTrait
 {
     /**
      * @var Collection|CustomerGroupInterface[]
+     *
+     * @ORM\ManyToMany(
+     *      targetEntity="Sylius\Component\Customer\Model\CustomerGroupInterface",
+     *      inversedBy="products")
+     * @ORM\JoinTable(
+     *      name="asdoria_products_customer_groups",
+     *      joinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="customer_group_id", referencedColumnName="id")}
+     *      )
      */
     protected $customerGroups;
 

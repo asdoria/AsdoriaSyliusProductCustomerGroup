@@ -1,3 +1,4 @@
 imports:
+  - { resource: "@AsdoriaSyliusProductCustomerGroupPlugin/Resources/config/app.yaml" }
   - { resource: "services/*.yaml" }
   - { resource: "services/**/*.yaml" }
