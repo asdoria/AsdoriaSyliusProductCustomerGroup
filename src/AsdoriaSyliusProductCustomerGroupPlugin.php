@@ -11,6 +11,6 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  *
  * @author  Hugo Duval <hugo.duval@asdoria.com>
  */
-final class AsdoriaProductCustomerGroupPlugin extends Bundle
+final class AsdoriaSyliusProductCustomerGroupPlugin extends Bundle
 {
 }
