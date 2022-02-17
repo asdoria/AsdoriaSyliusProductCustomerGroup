@@ -1,112 +1,115 @@
 <p align="center">
-    <a href="https://sylius.com" target="_blank">
-        <img src="https://demo.sylius.com/assets/shop/img/logo.png" />
-    </a>
 </p>
 
-<h1 align="center">Plugin Skeleton</h1>
+![Example of a product's customer group customization](doc/asdoria.jpg)
 
-<p align="center">Skeleton for starting Sylius plugins.</p>
+<h1 align="center">Asdoria Product Product Customer Group Plugin</h1>
 
-## Documentation
+<p align="center">A plugin to associate Customer Groups  with Products</p>
 
-For a comprehensive guide on Sylius Plugins development please go to Sylius documentation,
-there you will find the <a href="https://docs.sylius.com/en/latest/plugin-development-guide/index.html">Plugin Development Guide</a>, that is full of examples.
+## Features
 
-## Quickstart Installation
++ ...
 
-1. Run `composer create-project sylius/plugin-skeleton ProjectName`.
+[//]: # (<div style="max-width: 75%; height: auto; margin: auto">)
 
-2. From the plugin skeleton root directory, run the following commands:
+[//]: # ()
+[//]: # (![Example of a product's documents customization]&#40;doc/front.png&#41;)
 
-    ```bash
-    $ (cd tests/Application && yarn install)
-    $ (cd tests/Application && yarn build)
-    $ (cd tests/Application && APP_ENV=test bin/console assets:install public)
-    
-    $ (cd tests/Application && APP_ENV=test bin/console doctrine:database:create)
-    $ (cd tests/Application && APP_ENV=test bin/console doctrine:schema:create)
-    ```
+[//]: # ()
+[//]: # (</div>)
 
-To be able to setup a plugin's database, remember to configure you database credentials in `tests/Application/.env` and `tests/Application/.env.test`.
+[//]: # ()
+[//]: # ()
+[//]: # (<div style="max-width: 75%; height: auto; margin: auto">)
+
+[//]: # ()
+[//]: # (Creating a document type and customizing its content in the product edit page.)
+
+[//]: # (![Example of a product's documents customization]&#40;doc/document.gif&#41;)
+
+[//]: # ()
+[//]: # (</div>)
+
+## Installation
+
+---
+1. Add the repository to composer.json
+
+[//]: # (TODO Remplacer l'url github par la nouvelle)
+```JSON
+"repositories": [
+    {
+    "type": "git",
+    "url": "https://github.com/ygasdoria/AsdoriaSyliusProductCustomerGroup"
+    }
+],
+```
+2. run `composer require asdoria/sylius-product-customer-group-plugin`
+
+
+3. Add the bundle in `config/bundles.php`. You must put it ABOVE `SyliusGridBundle`
+
+```PHP
+Asdoria\SyliusProductCustomerGroupPlugin\AsdoriaSyliusProductCustomerGroupPlugin::class => ['all' => true],
+[...]
+Sylius\Bundle\GridBundle\SyliusGridBundle::class => ['all' => true],
+```
+
+4. Import config in `config/packages/_sylius.yaml`
+```yaml
+imports:
+    - { resource: "@AsdoriaSyliusProductCustomerGroupPlugin/Resources/config/services.yaml" }
+```
+5. In `src/Entity/Product/Product.php`. Import the following classes, traits and methods.
+
+```PHP
+use Sylius\Component\Product\Model\ProductTranslationInterface;
+use Sylius\Component\Core\Model\Product as BaseProduct;
+
+use Asdoria\SyliusProductCustomerGroupPlugin\Model\ProductInterface as AsdoriaProductCustomerGroupBundleProductInterface;
+use Asdoria\SyliusProductCustomerGroupPlugin\Traits\ProductCustomerGroupsTrait as AsdoriaProductCustomerGroupBundleProductTrait;
+
+class Product extends BaseProduct implements AsdoriaProductCustomerGroupBundleProductInterface
+{
+    use AsdoriaProductCustomerGroupBundleProductTrait;
+
+    protected function createTranslation(): ProductTranslationInterface
+    {
+        return new ProductTranslation();
+    }  
+}
+```
+7. run `php bin/console do:mi:mi` to update the database schema
+
+8. Add to Product xml mapping in `src/Resources/config/doctrine/Product.orm.xml`
+```XML
+<?xml version="1.0" encoding="UTF-8"?>
+
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                                      http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <mapped-superclass name="Product">
+        <many-to-many field="customerGroups" target-entity="Sylius\Component\Customer\Model\CustomerGroupInterface">
+            <join-table name="asdoria_products_customer_groups">
+                <join-columns>
+                    <join-column name="product_id" referenced-column-name="id" />
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="customer_group_id" referenced-column-name="id" />
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
+    </mapped-superclass>
+</doctrine-mapping>
+
+```
 
 ## Usage
 
-### Running plugin tests
+1. ...
 
-  - PHPUnit
 
-    ```bash
-    vendor/bin/phpunit
-    ```
 
-  - PHPSpec
 
-    ```bash
-    vendor/bin/phpspec run
-    ```
-
-  - Behat (non-JS scenarios)
-
-    ```bash
-    vendor/bin/behat --strict --tags="~@javascript"
-    ```
-
-  - Behat (JS scenarios)
- 
-    1. [Install Symfony CLI command](https://symfony.com/download).
- 
-    2. Start Headless Chrome:
-    
-      ```bash
-      google-chrome-stable --enable-automation --disable-background-networking --no-default-browser-check --no-first-run --disable-popup-blocking --disable-default-apps --allow-insecure-localhost --disable-translate --disable-extensions --no-sandbox --enable-features=Metal --headless --remote-debugging-port=9222 --window-size=2880,1800 --proxy-server='direct://' --proxy-bypass-list='*' http://127.0.0.1
-      ```
-    
-    3. Install SSL certificates (only once needed) and run test application's webserver on `127.0.0.1:8080`:
-    
-      ```bash
-      symfony server:ca:install
-      APP_ENV=test symfony server:start --port=8080 --dir=tests/Application/public --daemon
-      ```
-    
-    4. Run Behat:
-    
-      ```bash
-      vendor/bin/behat --strict --tags="@javascript"
-      ```
-    
-  - Static Analysis
-  
-    - Psalm
-    
-      ```bash
-      vendor/bin/psalm
-      ```
-      
-    - PHPStan
-    
-      ```bash
-      vendor/bin/phpstan analyse -c phpstan.neon -l max src/  
-      ```
-
-  - Coding Standard
-  
-    ```bash
-    vendor/bin/ecs check src
-    ```
-
-### Opening Sylius with your plugin
-
-- Using `test` environment:
-
-    ```bash
-    (cd tests/Application && APP_ENV=test bin/console sylius:fixtures:load)
-    (cd tests/Application && APP_ENV=test bin/console server:run -d public)
-    ```
-    
-- Using `dev` environment:
-
-    ```bash
-    (cd tests/Application && APP_ENV=dev bin/console sylius:fixtures:load)
-    (cd tests/Application && APP_ENV=dev bin/console server:run -d public)
-    ```
