@@ -27,6 +27,12 @@ class AccessCheckListener
     private RequestStack $requestStack;
     private Session $session;
 
+    /**
+     * @param TokenStorageInterface $tokenStorage
+     * @param UrlGeneratorInterface $router
+     * @param RequestStack $requestStack
+     * @param Session $session
+     */
     public function __construct (
         TokenStorageInterface $tokenStorage,
         UrlGeneratorInterface $router,
@@ -47,6 +53,7 @@ class AccessCheckListener
     public function onCheck(ResourceControllerEvent $event): void
     {
         $resource = $event->getSubject();
+
         if (!$resource instanceof CustomerGroupsAwareInterface) {
             return;
         }
@@ -71,7 +78,7 @@ class AccessCheckListener
                 throw new \InvalidArgumentException('user is not granted');
             }
         } catch (\Throwable $exception) {
-            $this->session->getFlashBag()->add('error', 'asdoria.ui.you_are_not_allowed_to_access_product');
+            $this->session->getFlashBag()->add('info', 'asdoria.ui.you_are_not_allowed_to_access_product');
             $event->setResponse($this->getRedirectResponse($resource, $request->headers->get('referer')));
         }
     }

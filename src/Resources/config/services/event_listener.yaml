@@ -5,6 +5,6 @@ services:
       $tokenStorage: '@security.token_storage'
       $router: '@router'
       $session: '@session'
-      $requestStack: '@requestStack'
+      $requestStack: '@request_stack'
     tags:
       - { name: kernel.event_listener, event: sylius.product.show,  method: onCheck }
