@@ -6,11 +6,11 @@ namespace Asdoria\SyliusProductCustomerGroupPlugin;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
- * Class AsdoriaProductCustomerGroupBundle
+ * Class AsdoriaProduct@AsdoriaSyliusProductCustomerGroupPlugin
  * @package Asdoria\SyliusProductCustomerGroupPlugin
  *
  * @author  Hugo Duval <hugo.duval@asdoria.com>
  */
-final class AsdoriaProductCustomerGroupBundle extends Bundle
+final class AsdoriaProductCustomerGroupPlugin extends Bundle
 {
 }
