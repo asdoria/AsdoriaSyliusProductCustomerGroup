@@ -3,15 +3,6 @@ declare(strict_types=1);
 
 namespace Asdoria\SyliusProductCustomerGroupPlugin\DependencyInjection;
 
-use Asdoria\SyliusProductCustomerGroupPlugin\Doctrine\ORM\CustomerGroupImageRepository;
-use Asdoria\SyliusProductCustomerGroupPlugin\Doctrine\ORM\CustomerGroupRepository;
-use Asdoria\SyliusProductCustomerGroupPlugin\Doctrine\ORM\CustomerGroupTranslationRepository;
-use Asdoria\SyliusProductCustomerGroupPlugin\Entity\CustomerGroup;
-use Asdoria\SyliusProductCustomerGroupPlugin\Entity\CustomerGroupImage;
-use Asdoria\SyliusProductCustomerGroupPlugin\Entity\CustomerGroupTranslation;
-use Asdoria\SyliusProductCustomerGroupPlugin\Form\Type\CustomerGroupImageType;
-use Asdoria\SyliusProductCustomerGroupPlugin\Form\Type\CustomerGroupTranslationType;
-use Asdoria\SyliusProductCustomerGroupPlugin\Form\Type\CustomerGroupType;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
