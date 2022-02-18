@@ -53,14 +53,7 @@ Creating a Customer Group and setting which Groups are authorized to access a pr
 Asdoria\SyliusProductCustomerGroupPlugin\AsdoriaSyliusProductCustomerGroupPlugin::class => ['all' => true],
 ```
 
-4. Import config in config/packages/_sylius.yaml
-
-```yaml
-imports:
-- { resource: "@AsdoriaSyliusPictogramPlugin/Resources/config/config.yaml"}
-```
-
-5.In `src/Entity/Product/Product.php`. Import the following classes, traits and methods.
+4.In `src/Entity/Product/Product.php`. Import the following classes, traits and methods.
 
 ```PHP
 use Sylius\Component\Core\Model\Product as BaseProduct;
@@ -81,7 +74,7 @@ class Product extends BaseProduct implements CustomerGroupsAwareInterface
     ...
 }
 ```
-6. In `src/Entity/Customer/CustomerGroup.php`. Import the following classes, traits and methods.
+5.In `src/Entity/Customer/CustomerGroup.php`. Import the following classes, traits and methods.
 ```PHP
 use Asdoria\SyliusProductCustomerGroupPlugin\Model\Aware\ProductsAwareInterface;
 use Asdoria\SyliusProductCustomerGroupPlugin\Traits\ProductsTrait;
@@ -104,9 +97,9 @@ class CustomerGroup extends BaseCustomerGroup implements ProductsAwareInterface
 }
 
 ```
-7. run `php bin/console do:mi:mi` to update the database schema
+6. run `php bin/console do:mi:mi` to update the database schema
 
-8. Add the additional Product xml mapping in `src/Resources/config/doctrine/Product.orm.xml`
+7. Add the additional Product xml mapping in `src/Resources/config/doctrine/Product.orm.xml`
 ```XML
 <?xml version="1.0" encoding="UTF-8"?>
 
@@ -131,7 +124,7 @@ class CustomerGroup extends BaseCustomerGroup implements ProductsAwareInterface
 </doctrine-mapping>
 ```
 
-9. Copy the template override from the plugin directory
+8. Copy the template override from the plugin directory
 
 From: `[shop_dir]/vendor/asdoria/sylius-product-customer-group-plugin/src/Resources/views/bundles/SyliusShopBundle/Product/Box/_content.html.twig`
 
