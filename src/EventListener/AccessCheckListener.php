@@ -27,7 +27,6 @@ class AccessCheckListener
     private TokenStorageInterface $tokenStorage;
     private UrlGeneratorInterface $router;
     private RequestStack $requestStack;
-    private Session $session;
 
     /**
      * @param TokenStorageInterface $tokenStorage
