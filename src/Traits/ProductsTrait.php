@@ -19,7 +19,7 @@ trait ProductsTrait
      */
     protected $products;
 
-    public function initializeProductProductsCollection()
+    public function initializeProductsCollection()
     {
         $this->products = new ArrayCollection();
     }

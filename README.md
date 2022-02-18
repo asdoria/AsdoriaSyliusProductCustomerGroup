@@ -90,8 +90,7 @@ class CustomerGroup extends BaseCustomerGroup implements ProductsAwareInterface
     use ProductsTrait;
     public function __construct()
     {
-        parent::__construct();
-        $this->initializeProductProductsCollection();
+        $this->initializeProductsCollection();
     }
     ...
 }

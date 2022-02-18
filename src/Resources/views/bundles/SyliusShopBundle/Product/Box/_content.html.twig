@@ -1,8 +1,12 @@
 {% import "@SyliusShop/Common/Macro/money.html.twig" as money %}
 {% set isLocked = product.hasCustomerGroups() %}
 {% set user = app.user %}
+
 {% if isLocked  and user is defined and user.customer is defined and user.customer.group is not null %}
-    {% set isLocked = product.hasCustomerGroup(user.customer.group) %}
+    {% set hasGroup = product.hasCustomerGroup(user.customer.group) %}
+    {% if hasGroup %}
+        {% set isLocked = false %}
+    {% endif %}
 {% endif %}
 <div class="ui fluid card" {{ sylius_test_html_attribute('product') }}>
     <a href="{{ path('sylius_shop_product_show', {'slug': product.slug, '_locale': product.translation.locale}) }}" class="blurring {% if isLocked == false %} dimmable {% endif %} image">
