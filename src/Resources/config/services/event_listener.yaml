@@ -8,3 +8,10 @@ services:
       $requestStack: '@request_stack'
     tags:
       - { name: kernel.event_listener, event: sylius.product.show,  method: onCheck }
+
+  asdoria_product_customer_group.redirect.subscriber:
+      class: Asdoria\SyliusProductCustomerGroupPlugin\EventListener\RedirectSubscriber
+      arguments:
+          $session: '@session'
+      tags:
+          - { name: kernel.event_subscriber }

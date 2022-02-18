@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Sylius\Component\Customer\Model\CustomerGroupInterface;
 
-trait ProductCustomerGroupsTrait
+trait CustomerGroupsTrait
 {
     /**
      * @var Collection|CustomerGroupInterface[]
@@ -24,7 +24,7 @@ trait ProductCustomerGroupsTrait
      */
     protected $customerGroups;
 
-    public function initializeProductCustomerGroupsCollection()
+    public function initializeCustomerGroupsCollection()
     {
         $this->customerGroups = new ArrayCollection();
     }

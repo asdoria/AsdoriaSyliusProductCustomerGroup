@@ -16,7 +16,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
  *
  * @author  Hugo Duval <hugo.duval@asdoria.com>
  */
-class AsdoriaProductCustomerGroupExtension extends Extension
+class AsdoriaSyliusProductCustomerGroupExtension extends Extension
 {
     /**
      * @param array            $configs
@@ -24,7 +24,6 @@ class AsdoriaProductCustomerGroupExtension extends Extension
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-//        $config = $this->processConfiguration($this->getConfiguration([], $container), $config);
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yaml');
     }

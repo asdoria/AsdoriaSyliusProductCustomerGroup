@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use function Sodium\add;
 
 /**
  *
@@ -21,6 +22,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 class AccessCheckListener
 {
     const _CHECKED_ROUTES = ['sylius_shop_product_show'];
+    const _REDIRECT_ATTRIBUTE = 'asdoria_redirect_product';
 
     private TokenStorageInterface $tokenStorage;
     private UrlGeneratorInterface $router;
@@ -31,19 +33,16 @@ class AccessCheckListener
      * @param TokenStorageInterface $tokenStorage
      * @param UrlGeneratorInterface $router
      * @param RequestStack $requestStack
-     * @param Session $session
      */
     public function __construct (
         TokenStorageInterface $tokenStorage,
         UrlGeneratorInterface $router,
-        RequestStack $requestStack,
-        Session $session
+        RequestStack $requestStack
     )
     {
         $this->tokenStorage = $tokenStorage;
         $this->router = $router;
         $this->requestStack = $requestStack;
-        $this->session = $session;
     }
 
     /**
@@ -78,8 +77,7 @@ class AccessCheckListener
                 throw new \InvalidArgumentException('user is not granted');
             }
         } catch (\Throwable $exception) {
-            $this->session->getFlashBag()->add('info', 'asdoria.ui.you_are_not_allowed_to_access_product');
-            $event->setResponse($this->getRedirectResponse($resource, $request->headers->get('referer')));
+            $request->attributes->set(self::_REDIRECT_ATTRIBUTE, $this->getRedirectResponse($resource, $request->headers->get('referer')));
         }
     }
 

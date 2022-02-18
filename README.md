@@ -17,7 +17,7 @@
 
 ![Example of a product's groups whitelisting](doc/guide.gif)
 
-
+![Example of a product's groups whitelisting](doc/guide_1.png)
 </div>
 
 
@@ -26,7 +26,6 @@
 
 
 Creating a Customer Group and setting which Groups are authorized to access a product
-
 
 
 
@@ -41,7 +40,7 @@ Creating a Customer Group and setting which Groups are authorized to access a pr
 "repositories": [
     {
     "type": "git",
-    "url": "https://github.com/asdoria/AsdoriaSyliusProductCustomerGroup"
+    "url": "https://github.com/asdoria/AsdoriaSyliusProductCustomerGroup.git"
     }
 ],
 ```
@@ -52,33 +51,58 @@ Creating a Customer Group and setting which Groups are authorized to access a pr
 
 ```PHP
 Asdoria\SyliusProductCustomerGroupPlugin\AsdoriaSyliusProductCustomerGroupPlugin::class => ['all' => true],
-[...]
-Sylius\Bundle\GridBundle\SyliusGridBundle::class => ['all' => true],
 ```
 
-4. Import config in `config/packages/_sylius.yaml`
+4. Import config in config/packages/_sylius.yaml
+
 ```yaml
 imports:
-    - { resource: "@AsdoriaSyliusProductCustomerGroupPlugin/Resources/config/services.yaml" }
+- { resource: "@AsdoriaSyliusPictogramPlugin/Resources/config/config.yaml"}
 ```
-5. In `src/Entity/Product/Product.php`. Import the following classes, traits and methods.
+
+5.In `src/Entity/Product/Product.php`. Import the following classes, traits and methods.
 
 ```PHP
-use Sylius\Component\Product\Model\ProductTranslationInterface;
 use Sylius\Component\Core\Model\Product as BaseProduct;
 
-use Asdoria\SyliusProductCustomerGroupPlugin\Model\ProductInterface as AsdoriaProductCustomerGroupBundleProductInterface;
-use Asdoria\SyliusProductCustomerGroupPlugin\Traits\ProductCustomerGroupsTrait as AsdoriaProductCustomerGroupBundleProductTrait;
+use Asdoria\SyliusProductCustomerGroupPlugin\Model\Aware\CustomerGroupsAwareInterface;
+use Asdoria\SyliusProductCustomerGroupPlugin\Traits\CustomerGroupsTrait;
 
-class Product extends BaseProduct implements AsdoriaProductCustomerGroupBundleProductInterface
+class Product extends BaseProduct implements CustomerGroupsAwareInterface
 {
-    use AsdoriaProductCustomerGroupBundleProductTrait;
-
-    protected function createTranslation(): ProductTranslationInterface
+    use CustomerGroupsTrait;
+    
+    public function __construct()
     {
-        return new ProductTranslation();
-    }  
+        parent::__construct();
+        $this->initializeCustomerGroupsCollection();
+    }
+    
+    ...
 }
+```
+6. In `src/Entity/Customer/CustomerGroup.php`. Import the following classes, traits and methods.
+```PHP
+use Asdoria\SyliusProductCustomerGroupPlugin\Model\Aware\ProductsAwareInterface;
+use Asdoria\SyliusProductCustomerGroupPlugin\Traits\ProductsTrait;
+use Doctrine\ORM\Mapping as ORM;
+use Sylius\Component\Customer\Model\CustomerGroup as BaseCustomerGroup;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="sylius_customer_group")
+ */
+class CustomerGroup extends BaseCustomerGroup implements ProductsAwareInterface
+{
+    use ProductsTrait;
+    public function __construct()
+    {
+        parent::__construct();
+        $this->initializeProductProductsCollection();
+    }
+    ...
+}
+
 ```
 7. run `php bin/console do:mi:mi` to update the database schema
 
@@ -112,6 +136,8 @@ class Product extends BaseProduct implements AsdoriaProductCustomerGroupBundlePr
 From: `[shop_dir]/vendor/asdoria/sylius-product-customer-group-plugin/src/Resources/views/bundles/SyliusShopBundle/Product/Box/_content.html.twig`
 
 To: `[shop_dir]/templates/bundles/SyliusShopBundle/Product/Box/_content.html.twig`
+
+Linux CMD : cp -r vendor/asdoria/sylius-product-customer-group-plugin/src/Resources/views/bundles/SyliusShopBundle/Product/Box templates/bundles/SyliusShopBundle/Product/Box
 
 ---
 ## Usage
