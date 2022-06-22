@@ -140,7 +140,7 @@ If you want to try to create pictograms, go on [the admin authentication page](h
 > 
 Then go on ["Groups" in the back office](https://demo-sylius.asdoria.fr/admin/customer-groups/) and follow usage lines below.
 
-Note that we have developed several other open source plugins for Sylius, whose demos and documentation are listed on the [following page](asdoria.github.io).
+Note that we have developed several other open source plugins for Sylius, whose demos and documentation are listed on the [following page](https://asdoria.github.io/).
 
 ## Usage
 
