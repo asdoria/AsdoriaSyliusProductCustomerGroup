@@ -132,6 +132,14 @@ To: `[shop_dir]/templates/bundles/SyliusShopBundle/Product/Box/_content.html.twi
 Linux CMD : cp -r vendor/asdoria/sylius-product-customer-group-plugin/src/Resources/views/bundles/SyliusShopBundle/Product/Box templates/bundles/SyliusShopBundle/Product/Box
 
 ---
+## Demo
+
+If you want to try to create pictograms, go on [the admin authentication page](https://demo-sylius.asdoria.fr/admin/) and connect with:
+> **Login:** asdoria <br>
+> **Password:** asdoria
+> 
+Then go on ["Groups" in the back office](https://demo-sylius.asdoria.fr/admin/customer-groups/) and follow usage lines below.
+
 ## Usage
 
 1. Create or use existing Customer Groups
