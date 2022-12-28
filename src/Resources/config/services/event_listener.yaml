@@ -11,6 +11,6 @@ services:
   asdoria_product_customer_group.redirect.subscriber:
       class: Asdoria\SyliusProductCustomerGroupPlugin\EventListener\RedirectSubscriber
       arguments:
-          $session: '@session'
+        $requestStack: '@request_stack'
       tags:
           - { name: kernel.event_subscriber }
